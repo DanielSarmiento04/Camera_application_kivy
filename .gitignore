@@ -168,3 +168,4 @@ cython_debug/
 audios/*
 *.wav
 *.zip
+*.DS_Store

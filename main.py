@@ -11,13 +11,13 @@ from PIL import Image as ImagePIL
 from kivy.uix.button import Button
 from kivymd.uix.filemanager import MDFileManager
 from kivy.uix.image import Image
-
 import os
 
 class MainApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Window.size = (300, 500)
+        # Create the file manager instance
         self.file_manager = MDFileManager(
             exit_manager=self.exit_manager,
             select_path=self.select_path,
@@ -39,17 +39,19 @@ class MainApp(MDApp):
         layout.add_widget(MDLabel(text="Hello world", halign="center"))
         layout.add_widget(MDRectangleFlatButton(text='Prender la camara', pos_hint={'center_x': 0.5, 'center_y': 0.4}))
 
-        btn_select_file = Button(text='Seleccione una imagen',)
-        # set size
+        self.path_image = None
+        self.image = Image(source='app/imgs/file_manager.jpg', size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5})
+        layout.add_widget(self.image)
 
+        # Button to open the file manager
+        btn_select_file = Button(text='Seleccione una imagen',)
+        # Bind the button to the open_file_manager method
         btn_select_file.size_hint = (0.5, 0.5)
         # set position
         btn_select_file.pos_hint = {'center_x': .5, 'center_y': .5}
         # put border radius
         btn_select_file.background_normal = ''
         btn_select_file.background_color = (0, 0, 0, 1)
-        self.path_image = None
-        self.image = Image(source='src/images.jpeg', size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5})
         btn_select_file.on_release = self.open_file_manager
 
         layout.add_widget(btn_select_file)
@@ -67,7 +69,7 @@ class MainApp(MDApp):
     def exit_manager(self, *args):
         self.file_manager.close()
         # img = analize_image(self.path_image)
-        img = ImagePIL.fromarray(img)
+        img = ImagePIL.open(self.path_image)
         # put the image in the layout
         with tempfile.NamedTemporaryFile(suffix='.png', prefix="image", delete=False, mode="w+b") as temp:
             img.save(temp.name)
