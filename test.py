@@ -5,16 +5,7 @@ from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.toolbar import MDTopAppBar
 from kivymd.uix.button import MDRectangleFlatButton
-import tempfile
-from PIL import Image as ImagePIL
-from kivy.uix.button import Button
-from kivymd.uix.filemanager import MDFileManager
-from kivy.uix.image import Image
-from matplotlib.pyplot import text
-from numpy import source
-
-from app.Components.ButtonManager import FileManagerButton
-from app.Components.FileManagerButton import DisplayerImage
+import cv2
 
 class MainApp(MDApp):
     def __init__(self, **kwargs):
@@ -34,17 +25,20 @@ class MainApp(MDApp):
                             )
         layout.add_widget(toolbar)
         layout.add_widget(MDLabel(text="Hello world", halign="center"))
-        # self.path_image = None
-        # self.image = Image(source='app/imgs/file_manager.jpg', size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5})
-        # layout.add_widget(self.image)
-        # button = FileManagerButton(text="Open image",source="app/imgs/file_manager.jpg")
-        # layout.add_widget(button)
-        display = DisplayerImage()
-        layout.add_widget(display)
-        # self.path_image = None
-        label = MDLabel(text="Hello world", halign="center")
-        layout.add_widget(label)
+
+        button = MDRectangleFlatButton(text='Open Camera', pos_hint={'center_x': 0.5, 'center_y': 0.4})
+        button.on_release = self.open_camera
+        layout.add_widget(button)
         return layout
+
+    def open_camera(self):
+        cap = cv2.VideoCapture(0)
+        while cap.isOpened():
+            ret, frame = cap.read()
+            cv2.imshow('frame', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        print("Open Camera")
 
 if __name__ == '__main__':
     MainApp().run()

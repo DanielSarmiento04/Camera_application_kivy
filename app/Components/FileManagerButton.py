@@ -3,9 +3,14 @@ from kivy.uix.image import Image
 from app.Components.ButtonManager import FileManagerButton
 from kivymd.uix.filemanager import MDFileManager
 import os
-import tempfile
 
 class DisplayerImage(BoxLayout):
+    """
+        DisplayerImage
+        ==============
+        This class is used to display an local image in the application.
+        and put it in the center of the screen.
+    """
     def __init__(self, **kwargs):
         super(DisplayerImage, self).__init__(**kwargs)
         self.orientation = "vertical"

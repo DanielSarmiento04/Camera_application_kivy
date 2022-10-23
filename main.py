@@ -3,7 +3,6 @@ from kivymd.uix.label import MDLabel
 from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.toolbar import MDTopAppBar
-
 from app.Components.FileManagerButton import DisplayerImage
 
 class MainApp(MDApp):
@@ -29,7 +28,6 @@ class MainApp(MDApp):
         display = DisplayerImage()
         layout.add_widget(display)
 
-     
         return layout
 
 if __name__ == '__main__':

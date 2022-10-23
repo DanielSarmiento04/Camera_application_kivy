@@ -54,3 +54,11 @@ Las imagenes esn libre de derechos de autor segun pexels.com
 Foto de SHVETS production de Pexels: 
 Foto de SHVETS production de Pexels: https://www.pexels.com/es-es/foto/fila-juguete-juguetes-plastico-9743228/
 <img src="https://images.pexels.com/photos/9743228/pexels-photo-9743228.jpeg" style="max-height:500px">
+
+Foto de live camera
+https://www.pexels.com/es-es/foto/camara-fotografia-tecnologia-lente-9966438/
+<img src= "https://images.pexels.com/photos/9966438/pexels-photo-9966438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+
+
+Credits:
+1. [CoOoDe](https://www.youtube.com/watch?v=WKD9FSh5tu4).
