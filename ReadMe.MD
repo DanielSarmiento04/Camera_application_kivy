@@ -46,8 +46,9 @@ Or using anaconda
 
 
 Project adavance:
-
-<img src="app/imgs/Avanced.png" style="max-height:500px">
+1. 
+<img src="app/imgs/Avanced.png" style="max-height:200px">
+<img src="app/imgs/Avanced_2.png" style="max-height:200px">
 
 Las imagenes esn libre de derechos de autor segun pexels.com
 
