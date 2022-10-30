@@ -1,10 +1,11 @@
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.camera import Camera
-from kivy.uix.label import Label
-from kivy.uix.button import Button
-import asyncio
+from kivymd.uix.button import MDRaisedButton
+from kivy.clock import Clock
+from kivy.graphics.texture import Texture
+from  kivy.uix.image import Image
+import cv2
 
-default_path_image = "app/imgs/event_camera.jpeg"
+path_image = "app/imgs/event_camera.jpeg"
 
 class LiveCamera(BoxLayout):
     """
@@ -20,27 +21,52 @@ class LiveCamera(BoxLayout):
         self.spacing = 10
         self.orientation = "vertical"
         # Create a camera object
-        self.camera = Camera(play=False, resolution=(720, 480), size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5})
-        self.camera.source = default_path_image
-        self.add_widget(self.camera, )
+        self.image = Image(source=path_image)
         
-        # Create a button to open the camere
-        self.button_open_close_camera = Button(text='OpenCamera', )
-        self.button_open_close_camera.bind(on_press=self.open_camera)
-        self.add_widget(self.button_open_close_camera)
-    
-    def open_camera(self, *args):
-        # Event open camera
-        if self.camera.play:
-            self.camera.play = False
-            self.button_open_close_camera.text = "Open Camera"
-            
-            print("before set source image")
-            # asyncio.wait(1)
-            self.camera.source = default_path_image
-            print("after set source image")
-        else:
-            self.camera.play = True
-            self.button_open_close_camera.text = "Close Camera"
+        self.add_widget(self.image)
+        self.button_open_close = MDRaisedButton(text="Open Camera", pos_hint={'center_x':0.5, "center_y": 0.5}, size_hint=(None, None))
+        self.button_open_close.on_release = self.open_close_camera
+        self.button_take_photo = MDRaisedButton(text="Take a photo", pos_hint={'center_x':0.5, "center_y": 0.5}, size_hint=(None, None))
+        self.button_take_photo.on_release = self.capture_image
+        
+        self.button_take_photo.disabled = True
+        self.add_widget(self.button_take_photo)
 
+        self.add_widget(self.button_open_close)
+
+        self.capture = None
+        # Clock.schedule_interval(self.load_video, 1.0/30.0)
+
+
+    def open_close_camera(self, *args):        
+        if self.button_open_close.text == "Open Camera":
+            self.capture = cv2.VideoCapture(0)
+            self.button_open_close.text = "Close Camera"
+            print("Encender camara")
+            Clock.schedule_interval(self.load_video, 1.0/30.0)
+            self.button_take_photo.disabled = False
+        else:
+            print("Apagar camara")
+            self.image.source = path_image
+            Clock.unschedule(self.load_video)
+            self.capture.release()
+            self.image.reload()
+            self.button_open_close.text = "Open Camera"
+            self.button_take_photo.disabled = True
+
+    def load_video(self, capture):
+        
+        ret, frame = self.capture.read()
+        self.image_frame = frame
+        buffer = cv2.flip(frame, 0).tobytes()
+        texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
+        texture.blit_buffer(buffer, colorfmt='bgr', bufferfmt='ubyte')
+        self.image.texture = texture
+        pass
+
+    def capture_image(self, *args):
+        cv2.imwrite("app/imgs/test.png", self.image_frame)
+        print("Take a photo")
     
+    def capture_video(self, *args):
+        pass
