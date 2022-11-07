@@ -169,3 +169,5 @@ audios/*
 *.wav
 *.zip
 *.DS_Store
+
+*.jpeg

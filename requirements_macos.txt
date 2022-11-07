@@ -12,7 +12,7 @@ Kivy-Garden==0.1.5
 kivymd==1.1.1
 kiwisolver==1.4.4
 matplotlib==3.6.1
-mediapipe==0.8.11
+mediapipe-silicon==0.8.11
 numpy==1.23.4
 opencv-contrib-python==4.6.0.66
 opencv-python==4.6.0.66
