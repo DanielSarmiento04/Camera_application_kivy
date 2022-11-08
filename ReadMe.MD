@@ -27,13 +27,13 @@ Or using anaconda
 Or using anaconda 
  <pre>conda ativate .venv</pre>
 
-3. Download the requirements  from requirements.txt
+3. Download the requirements  from requirements.txt if you are in windows or Linux and
 
 
-    Win/Conda
+    Win/Conda/Linux
  <pre>python -m pip install -r requirements.txt</pre>
- linux/MacOs
- <pre>python3 -m pip install -r requirements.txt</pre>
+ MacOs
+ <pre>python3 -m pip install -r requirements_macos.txt</pre>
 
 4. Run the Mobile Application
 

@@ -5,7 +5,6 @@ from kivy.graphics.texture import Texture
 from kivy.uix.gridlayout import GridLayout
 from  kivy.uix.image import Image
 import cv2
-import tempfile
 
 path_image = "app/imgs/event_camera.jpeg"
 
@@ -22,11 +21,11 @@ class LiveCamera(BoxLayout):
         # Configure the Boc Layout
         self.spacing = 10
         self.orientation = "vertical"
-        # Create a camera object
-        self.image = Image(source=path_image)
+        self.minimum_width = 250        # Create a camera object
+        self.image = Image(source=path_image, allow_stretch= True, texture_size= (200,300) )
         
         # Create the Button for take control to camaera event 
-        self.add_widget(self.image)
+        self.add_widget(self.image,  )
         self.button_open_close = MDRaisedButton(text="Open Camera", pos_hint={'center_x':0.5, "center_y": 0.5}, size_hint=(None, None))
         self.button_open_close.on_release = self.open_close_camera
 
@@ -64,8 +63,8 @@ class LiveCamera(BoxLayout):
         elif self.button_open_close.text == "Close Camera":
             print("Apagar camara")
             self.close_camera()
-            
-                        
+
+
     def open_camera(self):
         """
             This method allow take the video from the First camera allowed.
@@ -95,6 +94,7 @@ class LiveCamera(BoxLayout):
         ret, frame = self.capture.read()
         self.image_frame = frame
         buffer = cv2.flip(frame, 0).tobytes()
+    
         texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
         texture.blit_buffer(buffer, colorfmt='bgr', bufferfmt='ubyte')
         self.image.texture = texture

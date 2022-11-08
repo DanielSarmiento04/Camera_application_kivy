@@ -26,14 +26,8 @@ class TestCamera(MDApp):
         label = Label(text="Hello world")
         layout.add_widget(label)
         live_camera = LiveCamera()
-        layout.add_widget(live_camera)
-        # self.camera = Camera(play=False, resolution=(640, 480))
-        # layout.add_widget(self.camera)
-
-        # button = Button(text='Capture', )
-        # button.bind(on_press=self.open_camera)
-        # layout.add_widget(button)
-
+        layout.add_widget(live_camera,)
+        
         return layout
     def open_camera(self, *args):
         self.camera.play = True
